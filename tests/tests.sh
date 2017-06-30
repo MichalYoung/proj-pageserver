@@ -25,7 +25,7 @@ function expect_status() {
     # Args
     path=$1
     expect=$2
-    curl --silent -i ${URLbase}/${path} >/tmp/,$$
+    curl --silent -i  "${URLbase}/${path}" >/tmp/,$$
     if grep -q ${expect} /tmp/,$$ ; then 
 	echo "Pass --  found ${expect} in ${URLbase}/${path} "
     else
@@ -38,4 +38,7 @@ expect_body trivia.html  "Seriously"
 expect_status nosuch.html "404"
 expect_status there/theybe.html 404
 expect_status there//theybe.html "403"
-expect_status there.xxx "403" 
+expect_status there.xxx "403"
+# expect_status '../trivia.html' "403"
+expect_status 'something/something/../../../../trivia.html' "403"
+
